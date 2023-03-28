@@ -4,12 +4,13 @@ require('cypress-xpath')
 class loginPage{
 
     elements ={
-        userNameInputField:() => cy.xpath("//*[@type=\"email\"]"),
-        passwordInputField:() => cy.xpath("//*[@type=\"password\"]"),
+        userNameInputField:() => cy.get('#mat-input-0'),
+        passwordInputField:() => cy.get('#mat-input-1'),
         signInButton:() => cy.xpath("//*[@data-id=\"btn_sign_in\"]"),
         emailInputLabel:() => cy.get("mat-label.ng-tns-c8-0"),
         passwordInputLabel:() => cy.get('mat-label.ng-tns-c8-1 > span'),
-        emailInputMask:() => cy.get('#mat-mdc-error-0')
+        emailInputErrorField:() => cy.get('#mat-mdc-error-0'),
+        passwordInputErrorField:() => cy.get('#mat-mdc-error-1')
     };
     checkThatPageElementsAreExists(){
         this.elements.userNameInputField().should('exist');
@@ -34,11 +35,18 @@ class loginPage{
             expect(interception.response.statusCode).to.equal(statusCode);
         });
     };
-    checkEmailIncorrectFormat(userName){
+    checkEmailIncorrectFormatError(userName){
         this.elements.userNameInputField().click();
         this.elements.userNameInputField().type(userName);
         this.elements.passwordInputField().click();
-        this.elements.emailInputMask().should('have.text', 'Incorrect email format');
+        this.elements.emailInputErrorField().should('have.text', 'Incorrect email format');
+    };
+    checkThatEmailPasswordFieldsAreRequiredError(){
+        this.elements.userNameInputField().click();
+        this.elements.passwordInputField().click();
+        this.elements.userNameInputField().click();
+        this.elements.emailInputErrorField().should('have.text', 'Email is required');
+        this.elements.passwordInputErrorField().should('have.text', 'Password is required');
     };
 }
 

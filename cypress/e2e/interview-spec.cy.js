@@ -19,6 +19,7 @@ it('Should successful login to main page with status code 200', () =>{
     const aoData = userData.autotest;
     const urlData = userData.urlData;
     loginPage.login(aoData.user, aoData.password, urlData.logInUrl, 200);
+    scanPage.checkUrlPattern(urlData.scansPageUrl)
     scanPage.checkThatScanTitlesContain();
   });
 });
@@ -34,6 +35,10 @@ it('Should check that login is unavailable with wrong credentials and status cod
 it('Should check email form mask', () =>{
   cy.fixture('example').then((userData) => {
     const aoData = userData.autotest;
-    loginPage.checkEmailIncorrectFormat(aoData.incorrectUserNameMask);
+    loginPage.checkEmailIncorrectFormatError(aoData.incorrectUserNameMask);
   });
+});
+
+it('Should check that email and password fields are required notification', () =>{
+    loginPage.checkThatEmailPasswordFieldsAreRequiredError();
 });

@@ -9,7 +9,10 @@ class scanTablePage{
     checkThatScanTitlesContain(){
         this.elements.scanInputLable().should('contain', 'DVWA - HAR All no-smart +AO');
         this.elements.scanInputLable().should("have.length", 10);
-    }
+    };
+    checkUrlPattern(urlPart){
+        cy.url().should('include', urlPart);
+    };
 }
 
 module.exports = new scanTablePage();
