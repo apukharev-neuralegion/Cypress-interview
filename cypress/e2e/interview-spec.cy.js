@@ -9,8 +9,31 @@ beforeEach(() => {
   });
 });
 
-it('Should login to main page', () =>{
-  loginPage.checkThatLoginFormElementsAreAvailable();
-  loginPage.login();
-  scanPage.checkThatScanTitlesContain();
+it('Should check that elements are exists and have correct naming', () =>{
+  loginPage.checkThatLoginFormElementsContainCorrectText();
+  loginPage.checkThatPageElementsAreExists();
+});
+
+it('Should successful login to main page with status code 200', () =>{
+  cy.fixture('example').then((userData) => {
+    const aoData = userData.autotest;
+    const urlData = userData.urlData;
+    loginPage.login(aoData.user, aoData.password, urlData.logInUrl, 200);
+    scanPage.checkThatScanTitlesContain();
+  });
+});
+
+it('Should check that login is unavailable with wrong credentials and status code 401', () =>{
+  cy.fixture('example').then((userData) => {
+    const aoData = userData.autotest;
+    const urlData = userData.urlData;
+    loginPage.login(aoData.wrongUserName, aoData.wrongUserPassword, urlData.logInUrl, 401);
+  });
+});
+
+it('Should check email form mask', () =>{
+  cy.fixture('example').then((userData) => {
+    const aoData = userData.autotest;
+    loginPage.checkEmailIncorrectFormat(aoData.incorrectUserNameMask);
+  });
 });
