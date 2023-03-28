@@ -16,7 +16,7 @@ class loginPage{
         this.elements.passwordInputField().should('exist');
         this.elements.emailInputLabel().should('exist');
         this.elements.passwordInputLabel().should('exist');
-        this.elements.signInButton().should('be.disabled').should('have.text', ' Sign in ');
+        this.elements.signInButton().should('be.disabled').should('contain.text', 'Sign in');
     };
     checkThatLoginFormElementsContainCorrectText(){
         this.elements.emailInputLabel().should('contain', 'Email');
@@ -38,7 +38,7 @@ class loginPage{
         this.elements.userNameInputField().click();
         this.elements.userNameInputField().type(userName);
         this.elements.passwordInputField().click();
-        this.elements.emailInputMask().should('contain.text', 'Incorrect email format');
+        this.elements.emailInputMask().should('have.text', 'Incorrect email format');
     };
 }
 
