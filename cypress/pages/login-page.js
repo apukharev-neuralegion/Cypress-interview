@@ -23,7 +23,7 @@ class loginPage{
         this.elements.emailInputLabel().should('contain', 'Email');
         this.elements.passwordInputLabel().should('contain', 'Password');
     };
-    login(userName, password, url, statusCode){
+    loginAndCheckStatusCode(userName, password, url, statusCode){
         this.elements.userNameInputField().click();
         this.elements.userNameInputField().type(userName);
         this.elements.passwordInputField().click();

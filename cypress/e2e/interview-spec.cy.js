@@ -18,7 +18,7 @@ it('Should successful login to main page with status code 200', () =>{
   cy.fixture('example').then((userData) => {
     const aoData = userData.autotest;
     const urlData = userData.urlData;
-    loginPage.login(aoData.user, aoData.password, urlData.logInUrl, 200);
+    loginPage.loginAndCheckStatusCode(aoData.user, aoData.password, urlData.logInUrl, 200);
     scanPage.checkUrlPattern(urlData.scansPageUrl)
     scanPage.checkThatScanTitlesContain();
   });
@@ -28,7 +28,7 @@ it('Should check that login is unavailable with wrong credentials and status cod
   cy.fixture('example').then((userData) => {
     const aoData = userData.autotest;
     const urlData = userData.urlData;
-    loginPage.login(aoData.wrongUserName, aoData.wrongUserPassword, urlData.logInUrl, 401);
+    loginPage.loginAndCheckStatusCode(aoData.wrongUserName, aoData.wrongUserPassword, urlData.logInUrl, 401);
   });
 });
 
